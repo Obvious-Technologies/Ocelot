@@ -1,4 +1,24 @@
-﻿using System;
+﻿#region header
+#pragma warning disable S125
+/* ************************************************************************** */
+/*  _____ _       Project Ocelot @ Obvious Technologies (c)                   */
+/* |  _  | |        (_)                                                       */
+/* | | | | |____   ___  ___  _   _ ___    Created: 03/01/2019 15:55:35        */
+/* | | | | '_ \ \ / / |/ _ \| | | / __|                                       */
+/* \ \_/ | |_) \ V /| | (_) | |_| \__ \   By:      Beranger Kabbas            */
+/*  \___/|_.__/ \_/ |_|\___/ \__,_|___/            bkabbas@axonesys.com       */
+/*       _____         _                 _             _                      */
+/*      |_   _|       | |               | |           (_)                     */
+/*        | | ___  ___| |__  _ __   ___ | | ___   __ _ _  ___ ___             */
+/*        | |/ _ \/ __| '_ \| '_ \ / _ \| |/ _ \ / _  | |/ _ / __|            */
+/*        | |  __/ (__| | | | | | | (_) | | (_) | (_| | |  __\__ \            */
+/*        \_/\___|\___|_| |_|_| |_|\___/|_|\___/ \__  |_|\___|___/            */
+/*                                                __/ |                       */
+/*        https://obvious.tech                   |___/                        */
+/* ************************************************************************** */
+#pragma warning restore S125
+#endregion header
+using System;
 using System.Threading.Tasks;
 using Ocelot.Authentication.Middleware;
 using Ocelot.Authorisation.Middleware;
@@ -36,6 +56,12 @@ namespace Ocelot.Middleware.Pipeline
                     app.UseDownstreamRouteFinderMiddleware();
                     app.UseDownstreamRequestInitialiser();
                     app.UseLoadBalancingMiddleware();
+
+                    if (pipelineConfiguration.AuthenticationMiddleware == null)
+                        app.UseAuthenticationMiddleware();
+                    else
+                        app.Use(pipelineConfiguration.AuthenticationMiddleware);
+
                     app.UseDownstreamUrlCreatorMiddleware();
                     app.UseWebSocketsProxyMiddleware();
                 });

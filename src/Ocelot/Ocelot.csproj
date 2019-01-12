@@ -22,8 +22,8 @@
     <CodeAnalysisRuleSet>..\..\codeanalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>full</DebugType>
-    <DebugSymbols>True</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="7.6.104" />
